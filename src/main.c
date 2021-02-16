@@ -53,7 +53,7 @@ main(int argc, char** argv)
         return -1;
     }
 
-    rom_move_res = nes_rom_loader_move_rom_to_ram(vm->rom, vm->cpu);
+    rom_move_res = nes_vm_load_rom(vm);
     if (rom_move_res == -1)
     {
         printf("Rom move failed\n");

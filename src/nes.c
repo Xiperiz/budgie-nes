@@ -76,3 +76,51 @@ nes_vm_free(struct nes_vm* obj)
 
     free(obj);
 }
+
+int
+nes_vm_load_rom(struct nes_vm* obj)
+{
+    uint64_t prg_rom_size_bytes = obj->rom->rom_parse.prg_rom_size * 16384;
+    uint64_t chr_rom_size_bytes = obj->rom->rom_parse.chr_rom_size * 8192;
+
+    // 16 for header, 0 or 512 for trainer
+    uint64_t prg_rom_start_addr = 16 + (obj->rom->rom_parse.has_trainer ? 512 : 0);
+    uint64_t chr_rom_start_addr = prg_rom_start_addr + prg_rom_size_bytes;
+
+    // Mapper 0 only implemented so this code only works for mapper 0
+    if (obj->rom->rom_parse.prg_rom_size == 1)
+    {
+        // 16kb (NROM-128)
+        // TODO Mirror 0x8000 - 0xBFFF
+        printf("NROM-128 is not supported \n");
+
+        return -1;
+    }
+    else if (obj->rom->rom_parse.prg_rom_size == 2)
+    {
+        // 32kb (NROM-256)
+
+        // CPU
+        const uint64_t mapper_0_starting_addr = 0x8000;
+        for (uint64_t i = 0; i < prg_rom_size_bytes; i++)
+        {
+            nes_cpu_ram_write_word(obj->cpu, i + mapper_0_starting_addr,
+                                   obj->rom->rom_raw_data[prg_rom_start_addr + i]);
+        }
+
+        printf("PGR-ROM with size of %lli loaded\n", prg_rom_size_bytes);
+
+        // TODO PPU
+        (void)chr_rom_size_bytes;
+        (void)chr_rom_start_addr;
+    }
+    else
+    {
+        // Non-zero mapper
+        printf("Non-zero mapper\n");
+
+        return -1;
+    }
+
+    return 0;
+}

@@ -56,6 +56,6 @@ struct nes_rom_loader
 struct nes_rom_loader* nes_rom_loader_create(void);
 void nes_rom_loader_free(struct nes_rom_loader* obj);
 int nes_rom_loader_load_rom(struct nes_rom_loader* obj, char* path);
-int nes_rom_loader_move_rom_to_ram(struct nes_rom_loader* rom, struct nes_cpu6502* ram);
+int nes_rom_loader_move_rom_to_vm(struct nes_rom_loader* rom, struct nes_cpu6502* cpu);
 
 #endif //BNES_ROM_H

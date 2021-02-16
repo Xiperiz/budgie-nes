@@ -34,5 +34,6 @@ struct nes_vm
 
 struct nes_vm* nes_vm_create(void);
 void nes_vm_free(struct nes_vm* obj);
+int nes_vm_load_rom(struct nes_vm* obj);
 
 #endif //BNES_NES_H
