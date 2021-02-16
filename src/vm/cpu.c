@@ -96,18 +96,18 @@ nes_cpu_ram_write_word(struct nes_cpu6502* obj, uint16_t addr, uint8_t val)
 uint16_t
 nes_cpu_ram_read_double_word(struct nes_cpu6502* obj, uint16_t addr)
 {
-    // TODO
-    (void)obj;
-    (void)addr;
+    uint8_t first_byte  = nes_cpu_ram_read_word(obj, addr + 1);
+    uint8_t second_byte = nes_cpu_ram_read_word(obj, addr);
 
-    return 0;
+    return ((first_byte & 0xFF) << 8) | (second_byte & 0xFF);
 }
 
 void
 nes_cpu_ram_write_double_word(struct nes_cpu6502* obj, uint16_t addr, uint16_t val)
 {
-    // TODO
-    (void)obj;
-    (void)addr;
-    (void)val;
+    uint8_t first_byte  = (uint8_t)val;
+    uint8_t second_byte = (uint8_t)((val >> 8) & 0xFF);
+
+    nes_cpu_ram_write_word(obj, addr, first_byte);
+    nes_cpu_ram_write_word(obj, addr + 1, second_byte);
 }

@@ -84,22 +84,3 @@ nes_ppu_memory_write_word(struct nes_ppu* obj, uint16_t addr, uint8_t val)
         obj->memory[addr] = val;
     }
 }
-
-uint16_t
-nes_ppu_memory_read_double_word(struct nes_ppu* obj, uint16_t addr)
-{
-    // TODO
-    (void)obj;
-    (void)addr;
-
-    return 0;
-}
-
-void
-nes_ppu_memory_write_double_word(struct nes_ppu* obj, uint16_t addr, uint16_t val)
-{
-    // TODO
-    (void)obj;
-    (void)addr;
-    (void)val;
-}

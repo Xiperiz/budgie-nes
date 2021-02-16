@@ -32,7 +32,5 @@ struct nes_ppu* nes_ppu_create(void);
 void nes_ppu_free(struct nes_ppu* obj);
 uint8_t nes_ppu_memory_read_word(struct nes_ppu* obj, uint16_t addr);
 void nes_ppu_memory_write_word(struct nes_ppu* obj, uint16_t addr, uint8_t val);
-uint16_t nes_ppu_memory_read_double_word(struct nes_ppu* obj, uint16_t addr);
-void nes_ppu_memory_write_double_word(struct nes_ppu* obj, uint16_t addr, uint16_t val);
 
 #endif //BNES_PPU_H
